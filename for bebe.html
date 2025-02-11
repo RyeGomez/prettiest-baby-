@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>For the prettiest baby</title>
+    <style>
+        body {
+            background-color: #FFD1DC;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            font-family: 'Comic Sans MS', cursive, sans-serif;
+        }
+        .card {
+            background-color: #FFF0F5;
+            border: 2px solid #FFB6C1;
+            border-radius: 15px;
+            padding: 20px;
+            text-align: center;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            position: relative;
+        }
+        .heart {
+            width: 100px;
+            height: 90px;
+            background: url('heart.png') no-repeat center center;
+            background-size: contain;
+            margin: 0 auto;
+        }
+        .flower-line-art {
+            width: 100%;
+            height: 100px;
+            background: url('flower_line_art.png') no-repeat center center;
+            background-size: contain;
+            margin: 20px 0;
+        }
+        .message {
+            font-size: 18px;
+            color: #FF69B4;
+        }
+        .button-container {
+            margin-top: 20px;
+        }
+        .button-container button {
+            display: none;
+            padding: 10px 20px;
+            background-color: #FF69B4;
+            border: none;
+            border-radius: 5px;
+            color: white;
+            font-size: 16px;
+            cursor: pointer;
+        }
+        .popup {
+            display: none;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background-color: rgba(255, 255, 255, 0.9);
+            padding: 20px;
+            border-radius: 10px;
+            text-align: center;
+        }
+        .popup h2 {
+            color: #FF69B4;
+        }
+    </style>
+</head>
+<body>
+    <div class="card">
+        <div class="heart"></div>
+        <div class="flower-line-art"></div>
+        <div class="message" id="message"></div>
+        <div class="button-container">
+            <button id="valentineButton">click this</button>
+        </div>
+        <div class="popup" id="popup">
+            <h2>HAPPY EATING PO SA 21. HAHAHAHA I JOKE! I LOVE YOUUU</h2>
+        </div>
+    </div>
+    <audio id="backgroundMusic" src="you_are_inlove.mp3" loop></audio>
+    <script>
+        const messageText = "Hi, mahal. Hindi ko alam kung paano ko sisimulan ito dahil sa simula pa lang hindi naman talaga ako magaling sa salita. Siguro, magsisimula na lang ako sa mga salitang 'mahal kita'. Hindi ko naisip na aabot tayo sa ganito, na mamahalin kita, at mamahalin mo rin ako. Napapabuntong-hininga na lang nga ako sa tuwing makikita ko ang espasyo sa mga daliri ko at wala roon ang kamay mo. Salamat sa mga panahong sinasamahan mo akong kumalma kapag galit ako sa mundo. Salamat din kasi hinahayaan mo akong maging 'ako'. Salamat sa mga bagay na napupunan mo na hindi mo alam. At sa mga oras na hindi mo mahal ang sarili mo, nawa'y maging sapat ang pagmamahal ko para mabawasan ang kalungkutan mo. At sa mga panahong hindi mo na maintindihan ang lahat, sana ay mahanap mo sa akin ang katahimikan at pahinga na hinahanap ng puso mo. Ngayong nandito na ako, may kakampi ka na. Dalawa na tayo; hindi na 'ako' na lang, kundi 'tayo'. Hayaan mong samahan kita sa kahit ano man pa 'yan. Mahal na mahal kita, Grace. Palagi. Ang dalangin ko ay kung ano ang hiling ng kalooban mo.Nawa'y tumanda tayong magkasama.Happy Valentines Day, Mahal.";
+       
+        const messageElement = document.getElementById('message');
+        const valentineButton = document.getElementById('valentineButton');
+        const popup = document.getElementById('popup');
+        const backgroundMusic = document.getElementById('backgroundMusic');
+
+        let index = 0;
+
+        function typeMessage() {
+            if (index < messageText.length) {
+                messageElement.innerHTML += messageText.charAt(index);
+                index++;
+                setTimeout(typeMessage, 100);
+            } else {
+                valentineButton.style.display = 'block';
+            }
+        }
+
+        valentineButton.addEventListener('click', () => {
+            popup.style.display = 'block';
+            valentineButton.style.display = 'none';
+        });
+
+        window.onload = () => {
+            document.body.addEventListener('click', () => {
+                backgroundMusic.play();
+                typeMessage();
+            }, { once: true });
+        };
+    </script>
+</body>
+</html>
