@@ -13,6 +13,7 @@
             height: 100vh;
             margin: 0;
             font-family: 'Courier New', monospace;
+            position: relative;
         }
         .card {
             background-color: #FFF0F5;
@@ -22,6 +23,10 @@
             text-align: center;
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
             position: relative;
+            width: 400px;
+            max-width: 90%;
+            max-height: 90%;
+            overflow: auto;
         }
         .heart {
             width: 100px;
@@ -40,6 +45,7 @@
         .message {
             font-size: 18px;
             color: #FF69B4;
+            text-align: center;
         }
         .button-container {
             margin-top: 20px;
@@ -68,6 +74,48 @@
         .popup h2 {
             color: #FF69B4;
         }
+        .gallery {
+            display: none;
+            justify-content: center;
+            margin-top: 20px;
+        }
+        .gallery video {
+            width: 100%;
+            max-width: 300px;
+            border-radius: 10px;
+            cursor: pointer;
+        }
+        .envelope {
+            display: none;
+            position: fixed;
+            top: 50%;
+            transform: translateY(-50%);
+            background-color: #FFB6C1;
+            border: 2px solid #FF69B4;
+            border-radius: 15px;
+            padding: 20px;
+            text-align: center;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            z-index: 1000;
+        }
+        .envelope video {
+            max-width: 90%;
+            max-height: 90%;
+            border-radius: 10px;
+        }
+        .envelope .close-btn {
+            display: block;
+            margin: 10px auto 0;
+            padding: 5px 10px;
+            background-color: #FF69B4;
+            border: none;
+            border-radius: 5px;
+            color: white;
+            cursor: pointer;
+        }
+        .envelope.right {
+            right: 10%;
+        }
     </style>
 </head>
 <body>
@@ -75,12 +123,20 @@
         <div class="heart"></div>
         <div class="flower-line-art"></div>
         <div class="message" id="message"></div>
+        <div class="gallery">
+            <video src="video1.mp4" controls></video>
+        </div>
         <div class="button-container">
+            <button id="showGalleryButton">My favorite clips</button>
             <button id="valentineButton">click this</button>
         </div>
         <div class="popup" id="popup">
             <h2>HAPPY ✨EATING✨ PO SA 21🥳🤪😇. HAHAHAHA JOKE! I LOVE YOUUU ❤️🥰✨🖐️</h2>
         </div>
+    </div>
+    <div class="envelope right" id="envelopeVideo">
+        <video id="enlargedVideo" controls autoplay></video>
+        <button class="close-btn" id="closeVideoEnvelope">Close</button>
     </div>
     <audio id="backgroundMusic" src="you_are_inlove.mp3" loop></audio>
     <script>
@@ -88,8 +144,15 @@
        
         const messageElement = document.getElementById('message');
         const valentineButton = document.getElementById('valentineButton');
+        const showGalleryButton = document.getElementById('showGalleryButton');
         const popup = document.getElementById('popup');
         const backgroundMusic = document.getElementById('backgroundMusic');
+       
+        const envelopeVideo = document.getElementById('envelopeVideo');
+        const enlargedVideo = document.getElementById('enlargedVideo');
+        const closeVideoEnvelope = document.getElementById('closeVideoEnvelope');
+        const gallery = document.querySelector('.gallery');
+        const galleryVideo = document.querySelector('.gallery video');
 
         let index = 0;
 
@@ -99,13 +162,21 @@
                 index++;
                 setTimeout(typeMessage, 100);
             } else {
-                valentineButton.style.display = 'block';
+                valentineButton.style.display = 'block'; // Show "click this" after message is typed
             }
         }
 
+        // Show "My favorite clips" button first
+        showGalleryButton.style.display = 'block';
+
+        showGalleryButton.addEventListener('click', () => {
+            gallery.style.display = 'flex';
+            showGalleryButton.style.display = 'none'; // Hide "My favorite clips" after clicking
+        });
+
         valentineButton.addEventListener('click', () => {
             popup.style.display = 'block';
-            valentineButton.style.display = 'none';
+            valentineButton.style.display = 'none'; // Hide "click this" after clicking
         });
 
         window.onload = () => {
@@ -114,6 +185,17 @@
                 typeMessage();
             }, { once: true });
         };
+
+        galleryVideo.addEventListener('click', () => {
+            enlargedVideo.src = galleryVideo.src;
+            envelopeVideo.style.display = 'block';
+            enlargedVideo.play();
+        });
+
+        closeVideoEnvelope.addEventListener('click', () => {
+            envelopeVideo.style.display = 'none';
+            enlargedVideo.pause();
+        });
     </script>
 </body>
 </html>
