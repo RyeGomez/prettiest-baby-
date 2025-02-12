@@ -1,4 +1,3 @@
-<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -49,6 +48,8 @@
         }
         .button-container {
             margin-top: 20px;
+            display: flex;
+            justify-content: center;
         }
         .button-container button {
             display: none;
@@ -59,6 +60,7 @@
             color: white;
             font-size: 16px;
             cursor: pointer;
+            margin: 0 10px;
         }
         .popup {
             display: none;
@@ -121,17 +123,18 @@
 <body>
     <div class="card">
         <div class="heart"></div>
+        <div class="message">FOR THE PRETTIEST BABY</div> <!-- Added this here -->
         <div class="flower-line-art"></div>
         <div class="message" id="message"></div>
         <div class="gallery">
             <video src="video1.mp4" controls></video>
         </div>
         <div class="button-container">
-            <button id="showGalleryButton">click here for a surpise</button>
+            <button id="showGalleryButton">click here for a surprise</button>
             <button id="valentineButton">click kung gusto ng kiss</button>
         </div>
         <div class="popup" id="popup">
-            <h2>AY GUMUGUSTO ANG BADING. SIGE! HAPPY ✨EATING✨ PO SA 21🥳🤪😇. HAHAHAHA JOKE! I LOVE YOUUU ❤️🥰✨🖐️</h2>
+            <h2>AY GUMUGUSTO ANG BADING. SIGE! HAPPY ✨EATING✨ PO SA 21🥳🤪😇. HAHAHAHA JOKE! I LOVE YOUUU❤️🥰✨🖐️</h2>
         </div>
     </div>
     <div class="envelope right" id="envelopeVideo">
@@ -180,10 +183,12 @@
         });
 
         window.onload = () => {
-            document.body.addEventListener('click', () => {
-                backgroundMusic.play();
-                typeMessage();
-            }, { once: true });
+            setTimeout(() => {
+                document.body.addEventListener('click', () => {
+                    backgroundMusic.play();
+                    typeMessage();
+                }, { once: true });
+            }, 500); // Delay before typing starts
         };
 
         galleryVideo.addEventListener('click', () => {
