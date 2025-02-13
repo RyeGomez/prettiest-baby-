@@ -50,6 +50,8 @@
             margin-top: 20px;
             display: flex;
             justify-content: center;
+            flex-direction: column;
+            align-items: center;
         }
         .button-container button {
             display: none;
@@ -60,21 +62,7 @@
             color: white;
             font-size: 16px;
             cursor: pointer;
-            margin: 0 10px;
-        }
-        .popup {
-            display: none;
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            background-color: rgba(255, 255, 255, 0.9);
-            padding: 20px;
-            border-radius: 10px;
-            text-align: center;
-        }
-        .popup h2 {
-            color: #FF69B4;
+            margin: 10px 0;
         }
         .gallery {
             display: none;
@@ -85,38 +73,6 @@
             width: 100%;
             max-width: 300px;
             border-radius: 10px;
-            cursor: pointer;
-        }
-        .envelope {
-            display: none;
-            position: fixed;
-            top: 50%;
-            transform: translateY(-50%);
-            background-color: #FFB6C1;
-            border: 2px solid #FF69B4;
-            border-radius: 15px;
-            padding: 20px;
-            text-align: center;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-            z-index: 1000;
-        }
-        .envelope video {
-            max-width: 90%;
-            max-height: 90%;
-            border-radius: 10px;
-        }
-        .envelope .close-btn {
-            display: block;
-            margin: 10px auto 0;
-            padding: 5px 10px;
-            background-color: #FF69B4;
-            border: none;
-            border-radius: 5px;
-            color: white;
-            cursor: pointer;
-        }
-        .envelope.right {
-            right: 10%;
         }
     </style>
 </head>
@@ -125,21 +81,19 @@
         <div class="heart"></div>
         <div class="message">FOR THE PRETTIEST BABY</div>
         <div class="flower-line-art"></div>
+        <div class="button-container">
+            <button id="readMeButton">Read Me</button>
+        </div>
         <div class="message" id="message"></div>
+        <div class="button-container">
+            <button id="watchMeButton">Watch Me</button>
+        </div>
         <div class="gallery">
-            <video src="video1.mp4" loop controls></video>
+            <video id="loveVideo" src="video1.mp4" loop controls></video>
         </div>
         <div class="button-container">
-            <button id="showGalleryButton">click here for a surprise</button>
-            <button id="valentineButton">click kung gusto ng kiss</button>
+            <button id="surpriseButton">Click for Surprise</button>
         </div>
-        <div class="popup" id="popup">
-            <h2>AY GUMUGUSTO ANG BADING. SIGE! HAPPY ✨EATING✨ PO SA 21🥳🤪😇. HAHAHAHA JOKE! I LOVE YOUUU❤️🥰✨🖐️</h2>
-        </div>
-    </div>
-    <div class="envelope right" id="envelopeVideo">
-        <video id="enlargedVideo" controls autoplay></video>
-        <button class="close-btn" id="closeVideoEnvelope">Close</button>
     </div>
     <audio id="backgroundMusic" src="sn.mp3" loop></audio>
 
@@ -156,31 +110,42 @@
         I hope this one will make you feel loved and special. Happy Valentine's Day, Mahal! Corny ko kapag in-love. :(((`;
 
         const messageElement = document.getElementById('message');
-        const valentineButton = document.getElementById('valentineButton');
-        const showGalleryButton = document.getElementById('showGalleryButton');
-        const popup = document.getElementById('popup');
+        const readMeButton = document.getElementById('readMeButton');
+        const watchMeButton = document.getElementById('watchMeButton');
+        const surpriseButton = document.getElementById('surpriseButton');
+        const loveVideo = document.getElementById('loveVideo');
+        const gallery = document.querySelector('.gallery');
         const backgroundMusic = document.getElementById('backgroundMusic');
 
         let index = 0;
+
         function typeMessage() {
             if (index < messageText.length) {
                 messageElement.innerHTML += messageText.charAt(index);
                 index++;
                 setTimeout(typeMessage, 50);
             } else {
-                valentineButton.style.display = 'block';
+                watchMeButton.style.display = 'block'; // Show "Watch Me" button after typing finishes
             }
         }
 
-        window.onload = () => {
-            document.body.addEventListener('click', () => {
-                backgroundMusic.play();
-                typeMessage();
-            }, { once: true });
-        };
+        // Start the letter when "Read Me" button is clicked
+        readMeButton.addEventListener('click', () => {
+            readMeButton.style.display = 'none'; // Hide the "Read Me" button
+            backgroundMusic.play();
+            typeMessage();
+        });
 
-        valentineButton.addEventListener('click', () => {
-            popup.style.display = 'block';
+        // Show the video when "Watch Me" is clicked
+        watchMeButton.addEventListener('click', () => {
+            gallery.style.display = 'flex'; // Show video container
+            watchMeButton.style.display = 'none'; // Hide "Watch Me" button
+            loveVideo.play();
+        });
+
+        // Show "Click for Surprise" when video ends
+        loveVideo.addEventListener('ended', () => {
+            surpriseButton.style.display = 'block';
         });
     </script>
 </body>
