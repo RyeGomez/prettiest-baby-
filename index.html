@@ -1,3 +1,4 @@
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -48,6 +49,7 @@
             margin-top: 20px;
             display: flex;
             justify-content: center;
+            gap: 10px;
         }
         button {
             padding: 10px 20px;
@@ -58,6 +60,10 @@
             font-size: 16px;
             cursor: pointer;
             margin: 10px 0;
+            transition: background-color 0.3s ease;
+        }
+        button:hover {
+            background-color: #FF1493;
         }
         .gallery {
             display: none;
@@ -65,16 +71,15 @@
         }
         video {
             width: 100%;
-            max-width: 90px;
+            max-width: 90%;
             border-radius: 10px;
         }
         .surprise-image {
             width: 100%;
-            max-width: 90px;
+            max-width: 90%;
             border-radius: 10px;
             display: none;
-            margin: 0 auto; /* Center the surprise image */
-            margin-top: 20px;
+            margin: 0 auto;
         }
     </style>
 </head>
@@ -91,30 +96,25 @@
             <button id="watchMeButton" style="display: none;">this is u</button>
         </div>
         <div class="gallery">
-            <video id="loveVideo" src="video1.mp4" autoplay controls></video>
+            <video id="loveVideo" src="video1.mp4" controls preload="auto"></video>
         </div>
         <div class="button-container">
             <button id="surpriseButton" style="display: none;">click kung gusto ng kiss</button>
         </div>
-        <img id="surpriseImage" class="surprise-image" src="surprise.jpg" alt="Surprise!">
+        <img id="surpriseImage" class="surprise-image" src="surprise.jpg" alt="Surprise!" preload="auto">
+        <div class="button-container" id="hideButtons" style="display: none;">
+            <button id="hideVideoButton">Hide Video</button>
+            <button id="hideImageButton">Hide Picture</button>
+            <button id="hideLetterButton">Hide Letter</button>
+        </div>
     </div>
     <audio id="backgroundMusic" src="sn.mp3" loop></audio>
 
     <script>
-        const messageText = `Hi, Mahal. I tried to be an astig baby girl sana pero I can't let this occasion pass na hindi ako magiging OA. 
-        Gusto ko sana maging poetic, kaso wala, I'm not cut out for that. Hahaha 
-        Sorry, I don't even know how to start. 
-        Well, the first thing on my mind right now is to say I love you. I miss you. And I really get emotional whenever I see the spaces between my fingers, wala kasi ro'n ang kamay mo. 
-        Wala ganon talaga. 
-        Tuloy pa rin ang buhay. 
-        Thank you for always being there. I wouldn't know how to cope with those dark times kung wala ka. 
-        And sa mga oras naman na hindi mo mahal ang sarili mo, I hope my love for you will be enough to fill those spaces til such time na mahal mo na ulit ang sarili mo. 
-        Now that I am here, may kakampi ka na. Dalawa na tayo; hindi na 'ako' na lang, kundi 'tayo'. Hayaan mong samahan kita sa kahit ano man pa 'yan. 
-        Mahal na mahal kita, Grace. 
-        Palagi. 
-        Ang dalangin ko ay kung ano ang hiling ng kalooban mo. Nawa'y tumanda tayong magkasama. 
-        Since sa 21 pa tayo magkikita, I hope this one will make you feel loved and special. 
-        Happy Valentine's Day, Mahal! Corny ko kapag in-love. :(((`;
+        const messageText = `Hi, Mahal. \n I tried to be an astig baby girl sana pero I can't let this occasion pass na hindi ako magiging OA. \n Gusto ko sana maging poetic, kaso wala, I'm not cut out for that. Hahaha. \n Sorry, I don't even know how to start. 
+Well, the first thing on my mind right now is to say I love you. I miss you. And I really get emotional whenever I see the spaces between my fingers, wala kasi ro'n ang kamay mo. \n Wala ganon talaga.Tuloy pa rin ang buhay. 
+\n Thank you for always being there. \n I wouldn't know how to cope with those dark times kung wala ka.\n And sa mga oras naman na hindi mo mahal ang sarili mo, I hope my love for you will be enough to fill those spaces til such time na mahal mo na ulit ang sarili mo. \n Now that I am here, may kakampi ka na. \n Dalawa na tayo; hindi na 'ako' na lang, kundi \n 'tayo'. \n Hayaan mong samahan kita sa kahit ano man pa 'yan.  
+Mahal na mahal kita, Grace. \n Palagi. \n Ang dalangin ko ay kung ano ang hiling ng kalooban mo. \n Nawa'y tumanda tayong magkasama. \n Since sa 21 pa tayo magkikita, I hope this one will make you feel loved and special. \n Happy Valentine's Day, Mahal! \n Corny ko kapag in-love. :(((;`;
 
         const messageElement = document.getElementById('message');
         const readMeButton = document.getElementById('readMeButton');
@@ -124,46 +124,77 @@
         const gallery = document.querySelector('.gallery');
         const backgroundMusic = document.getElementById('backgroundMusic');
         const surpriseImage = document.getElementById('surpriseImage');
+        const hideButtons = document.getElementById('hideButtons');
+        const hideVideoButton = document.getElementById('hideVideoButton');
+        const hideImageButton = document.getElementById('hideImageButton');
+        const hideLetterButton = document.getElementById('hideLetterButton');
 
         let index = 0;
 
         function typeMessage() {
             if (index < messageText.length) {
-                messageElement.innerHTML += messageText.charAt(index);
-                index++;
-                setTimeout(typeMessage, 50);
+                // Check for new line character
+                if (messageText.charAt(index) === '\n') {
+                    // If it's a new line, pause longer
+                    setTimeout(() => {
+                        messageElement.innerHTML += '<br>'; // Add a line break in HTML
+                        index++;
+                        typeMessage(); // Continue typing
+                    }, 500); // Pause for 500ms
+                } else {
+                    messageElement.innerHTML += messageText.charAt(index);
+                    index++;
+                    setTimeout(typeMessage, 50); // Retain typing speed
+                }
             } else {
-                watchMeButton.style.display = 'block'; // Show "Watch Me" button after typing finishes
-                surpriseButton.style.display = 'block'; // Show "Surprise" button after typing finishes
+                watchMeButton.style.display = 'block';
+                surpriseButton.style.display = 'block';
+                hideButtons.style.display = 'flex';
             }
         }
 
-        // Show the "read me" button when page loads
-        readMeButton.style.display = 'block';
-
-        // Start the letter when "Read Me" button is clicked
         readMeButton.addEventListener('click', () => {
-            readMeButton.style.display = 'none'; // Hide the "Read Me" button
+            readMeButton.style.display = 'none';
+            messageElement.innerHTML = '';
+            index = 0;
+            messageElement.style.display = 'block';
             backgroundMusic.play();
             typeMessage();
         });
 
-        // Show the video when "Watch Me" is clicked
         watchMeButton.addEventListener('click', () => {
-            gallery.style.display = 'block'; // Show video container
-            watchMeButton.style.display = 'none'; // Hide "Watch Me" button
+            gallery.style.display = 'block';
+            watchMeButton.style.display = 'none';
             loveVideo.play();
         });
 
-        // Show "Click for Surprise" when video ends
         loveVideo.addEventListener('ended', () => {
             surpriseButton.style.display = 'block';
         });
 
-        // Show the surprise image when "Click for Surprise" is clicked
         surpriseButton.addEventListener('click', () => {
             surpriseImage.style.display = 'block';
-            surpriseButton.style.display = 'none'; // Hide the "Click for Surprise" button
+            surpriseButton.style.display = 'none';
+            hideButtons.style.display = 'flex';
+        });
+
+        hideVideoButton.addEventListener('click', () => {
+            gallery.style.display = 'none';
+            watchMeButton.style.display = 'block';
+            surpriseButton.style.display = 'block';
+        });
+
+        hideImageButton.addEventListener('click', () => {
+            surpriseImage.style.display = 'none';
+            surpriseButton.style.display = 'block';
+            watchMeButton.style.display = 'block';
+        });
+
+        hideLetterButton.addEventListener('click', () => {
+            messageElement.style.display = 'none';
+            readMeButton.style.display = 'block';
+            watchMeButton.style.display = 'block';
+            surpriseButton.style.display = 'block';
         });
     </script>
 </body>
