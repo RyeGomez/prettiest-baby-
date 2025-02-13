@@ -64,17 +64,17 @@
             margin-top: 20px;
         }
         video {
-            width: 100%;
-            max-width: 300px;
+            width: 150%;
+            max-width: 500px;
             border-radius: 10px;
         }
         .surprise-image {
-            width: 100%;
-            max-width: 300px;
+            width: 150%;
+            max-width: 500px;
             border-radius: 10px;
-      
-display: none;
-            margin: 0 auto;
+            display: none;
+            margin: 0 auto; /* Center the surprise image */
+            margin-top: 20px;
         }
     </style>
 </head>
@@ -88,13 +88,13 @@ display: none;
         </div>
         <div class="message" id="message"></div>
         <div class="button-container">
-            <button id="watchMeButton">this is u</button>
+            <button id="watchMeButton" style="display: none;">this is u</button>
         </div>
         <div class="gallery">
-            <video id="loveVideo" src="video1.mp4" controls></video>
+            <video id="loveVideo" src="video1.mp4" autoplay controls></video>
         </div>
         <div class="button-container">
-            <button id="surpriseButton">click kung gusto ng kiss</button>
+            <button id="surpriseButton" style="display: none;">click kung gusto ng kiss</button>
         </div>
         <img id="surpriseImage" class="surprise-image" src="surprise.jpg" alt="Surprise!">
     </div>
@@ -134,6 +134,7 @@ display: none;
                 setTimeout(typeMessage, 50);
             } else {
                 watchMeButton.style.display = 'block'; // Show "Watch Me" button after typing finishes
+                surpriseButton.style.display = 'block'; // Show "Surprise" button after typing finishes
             }
         }
 
