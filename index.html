@@ -2,7 +2,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>For the prettiest baby</title>
+    <title>For the Prettiest Baby</title>
     <style>
         body {
             background-color: #FFD1DC;
@@ -12,20 +12,17 @@
             height: 100vh;
             margin: 0;
             font-family: 'Courier New', monospace;
-            position: relative;
+            text-align: center;
+            color: #FF69B4;
         }
         .card {
             background-color: #FFF0F5;
             border: 2px solid #FFB6C1;
             border-radius: 15px;
             padding: 20px;
-            text-align: center;
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-            position: relative;
-            width: 400px;
-            max-width: 90%;
-            max-height: 90%;
-            overflow: auto;
+            width: 600px;
+            max-width: 100%;
         }
         .heart {
             width: 100px;
@@ -45,16 +42,14 @@
             font-size: 15px;
             color: #FF69B4;
             text-align: center;
+            margin-top: 15px;
         }
         .button-container {
             margin-top: 20px;
             display: flex;
             justify-content: center;
-            flex-direction: column;
-            align-items: center;
         }
-        .button-container button {
-            display: none;
+        button {
             padding: 10px 20px;
             background-color: #FF69B4;
             border: none;
@@ -66,48 +61,60 @@
         }
         .gallery {
             display: none;
-            justify-content: center;
             margin-top: 20px;
         }
-        .gallery video {
+        video {
             width: 100%;
             max-width: 300px;
             border-radius: 10px;
+        }
+        .surprise-image {
+            width: 100%;
+            max-width: 300px;
+            border-radius: 10px;
+      
+display: none;
+            margin: 0 auto;
         }
     </style>
 </head>
 <body>
     <div class="card">
         <div class="heart"></div>
-        <div class="message">FOR THE PRETTIEST BABY</div>
+        <h2>FOR THE PRETTIEST BABY</h2>
         <div class="flower-line-art"></div>
         <div class="button-container">
-            <button id="readMeButton">Read Me</button>
+            <button id="readMeButton">read me muna pls</button>
         </div>
         <div class="message" id="message"></div>
         <div class="button-container">
-            <button id="watchMeButton">Watch Me</button>
+            <button id="watchMeButton">this is u</button>
         </div>
         <div class="gallery">
-            <video id="loveVideo" src="video1.mp4" loop controls></video>
+            <video id="loveVideo" src="video1.mp4" controls></video>
         </div>
         <div class="button-container">
-            <button id="surpriseButton">Click for Surprise</button>
+            <button id="surpriseButton">click kung gusto ng kiss</button>
         </div>
+        <img id="surpriseImage" class="surprise-image" src="surprise.jpg" alt="Surprise!">
     </div>
     <audio id="backgroundMusic" src="sn.mp3" loop></audio>
 
     <script>
         const messageText = `Hi, Mahal. I tried to be an astig baby girl sana pero I can't let this occasion pass na hindi ako magiging OA. 
-        Gusto ko sana maging poetic, kaso wala, I'm not cut out for that. 
-        Hahaha Sorry, I don't even know how to start. Well, the first thing on my mind right now is to say I love you. I miss you. 
-        And I really get emotional whenever I see the spaces between my fingers, wala kasi ro'n ang kamay mo. Wala ganon talaga. 
-        Tuloy pa rin ang buhay. Thank you for always being there. 
-        I wouldn't know how to cope with those dark times kung wala ka. 
+        Gusto ko sana maging poetic, kaso wala, I'm not cut out for that. Hahaha 
+        Sorry, I don't even know how to start. 
+        Well, the first thing on my mind right now is to say I love you. I miss you. And I really get emotional whenever I see the spaces between my fingers, wala kasi ro'n ang kamay mo. 
+        Wala ganon talaga. 
+        Tuloy pa rin ang buhay. 
+        Thank you for always being there. I wouldn't know how to cope with those dark times kung wala ka. 
         And sa mga oras naman na hindi mo mahal ang sarili mo, I hope my love for you will be enough to fill those spaces til such time na mahal mo na ulit ang sarili mo. 
         Now that I am here, may kakampi ka na. Dalawa na tayo; hindi na 'ako' na lang, kundi 'tayo'. Hayaan mong samahan kita sa kahit ano man pa 'yan. 
-        Mahal na mahal kita, Grace. Palagi. Ang dalangin ko ay kung ano ang hiling ng kalooban mo. Nawa'y tumanda tayong magkasama. Since sa 21 pa tayo magkikita,
-        I hope this one will make you feel loved and special. Happy Valentine's Day, Mahal! Corny ko kapag in-love. :(((`;
+        Mahal na mahal kita, Grace. 
+        Palagi. 
+        Ang dalangin ko ay kung ano ang hiling ng kalooban mo. Nawa'y tumanda tayong magkasama. 
+        Since sa 21 pa tayo magkikita, I hope this one will make you feel loved and special. 
+        Happy Valentine's Day, Mahal! Corny ko kapag in-love. :(((`;
 
         const messageElement = document.getElementById('message');
         const readMeButton = document.getElementById('readMeButton');
@@ -116,6 +123,7 @@
         const loveVideo = document.getElementById('loveVideo');
         const gallery = document.querySelector('.gallery');
         const backgroundMusic = document.getElementById('backgroundMusic');
+        const surpriseImage = document.getElementById('surpriseImage');
 
         let index = 0;
 
@@ -129,6 +137,9 @@
             }
         }
 
+        // Show the "read me" button when page loads
+        readMeButton.style.display = 'block';
+
         // Start the letter when "Read Me" button is clicked
         readMeButton.addEventListener('click', () => {
             readMeButton.style.display = 'none'; // Hide the "Read Me" button
@@ -138,7 +149,7 @@
 
         // Show the video when "Watch Me" is clicked
         watchMeButton.addEventListener('click', () => {
-            gallery.style.display = 'flex'; // Show video container
+            gallery.style.display = 'block'; // Show video container
             watchMeButton.style.display = 'none'; // Hide "Watch Me" button
             loveVideo.play();
         });
@@ -146,6 +157,12 @@
         // Show "Click for Surprise" when video ends
         loveVideo.addEventListener('ended', () => {
             surpriseButton.style.display = 'block';
+        });
+
+        // Show the surprise image when "Click for Surprise" is clicked
+        surpriseButton.addEventListener('click', () => {
+            surpriseImage.style.display = 'block';
+            surpriseButton.style.display = 'none'; // Hide the "Click for Surprise" button
         });
     </script>
 </body>
