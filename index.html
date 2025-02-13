@@ -123,7 +123,7 @@
 <body>
     <div class="card">
         <div class="heart"></div>
-        <div class="message">FOR THE PRETTIEST BABY</div> <!-- Added this here -->
+        <div class="message">FOR THE PRETTIEST BABY</div>
         <div class="flower-line-art"></div>
         <div class="message" id="message"></div>
         <div class="gallery">
@@ -142,73 +142,45 @@
         <button class="close-btn" id="closeVideoEnvelope">Close</button>
     </div>
     <audio id="backgroundMusic" src="sn.mp3" loop></audio>
+
     <script>
-        const messageText = "Hi, Mahal. I tried to be an astig baby girl sana pero I can't let this occasion pass na hindi ako magiging OA. 
-            Gusto ko sana maging poetic, kaso wala, I'm not cut out for that. 
-            Hahaha Sorry, I don't even know how to start. Well, the first thing on my mind right now is to say I love you. I miss you. 
-            And I really get emotional whenever I see the spaces between my fingers, wala kasi ro'n ang kamay mo. Wala ganon talaga. 
-            Tuloy pa rin ang buhay. Thank you for always being there. 
-            I wouldn't know how to cope with those dark times kung wala ka. 
-            And sa mga oras naman na hindi mo mahal ang sarili mo, I hope my love for you will be enough to fill those spaces til such time na mahal mo na ulit ang sarili mo. 
-            Now that I am here, may kakampi ka na. Dalawa na tayo; hindi na 'ako' na lang, kundi 'tayo'. Hayaan mong samahan kita sa kahit ano man pa 'yan. 
-            Mahal na mahal kita, Grace. Palagi. Ang dalangin ko ay kung ano ang hiling ng kalooban mo. Nawa'y tumanda tayong magkasama. Since sa 21 pa tayo magkikita,
-            I hope this one will make you feel loved and special. Happy Valentine's Day, Mahal! Corny ko kapag in-love. :(((";
-       
+        const messageText = `Hi, Mahal. I tried to be an astig baby girl sana pero I can't let this occasion pass na hindi ako magiging OA. 
+        Gusto ko sana maging poetic, kaso wala, I'm not cut out for that. 
+        Hahaha Sorry, I don't even know how to start. Well, the first thing on my mind right now is to say I love you. I miss you. 
+        And I really get emotional whenever I see the spaces between my fingers, wala kasi ro'n ang kamay mo. Wala ganon talaga. 
+        Tuloy pa rin ang buhay. Thank you for always being there. 
+        I wouldn't know how to cope with those dark times kung wala ka. 
+        And sa mga oras naman na hindi mo mahal ang sarili mo, I hope my love for you will be enough to fill those spaces til such time na mahal mo na ulit ang sarili mo. 
+        Now that I am here, may kakampi ka na. Dalawa na tayo; hindi na 'ako' na lang, kundi 'tayo'. Hayaan mong samahan kita sa kahit ano man pa 'yan. 
+        Mahal na mahal kita, Grace. Palagi. Ang dalangin ko ay kung ano ang hiling ng kalooban mo. Nawa'y tumanda tayong magkasama. Since sa 21 pa tayo magkikita,
+        I hope this one will make you feel loved and special. Happy Valentine's Day, Mahal! Corny ko kapag in-love. :(((`;
+
         const messageElement = document.getElementById('message');
         const valentineButton = document.getElementById('valentineButton');
         const showGalleryButton = document.getElementById('showGalleryButton');
         const popup = document.getElementById('popup');
         const backgroundMusic = document.getElementById('backgroundMusic');
-       
-        const envelopeVideo = document.getElementById('envelopeVideo');
-        const enlargedVideo = document.getElementById('enlargedVideo');
-        const closeVideoEnvelope = document.getElementById('closeVideoEnvelope');
-        const gallery = document.querySelector('.gallery');
-        const galleryVideo = document.querySelector('.gallery video');
 
         let index = 0;
-
         function typeMessage() {
             if (index < messageText.length) {
                 messageElement.innerHTML += messageText.charAt(index);
                 index++;
-                setTimeout(typeMessage, 100);
+                setTimeout(typeMessage, 50);
             } else {
-                valentineButton.style.display = 'block'; // Show "click this" after message is typed
+                valentineButton.style.display = 'block';
             }
         }
 
-        // Show "My favorite clips" button first
-        showGalleryButton.style.display = 'block';
-
-        showGalleryButton.addEventListener('click', () => {
-            gallery.style.display = 'flex';
-            showGalleryButton.style.display = 'none'; // Hide "My favorite clips" after clicking
-        });
+        window.onload = () => {
+            document.body.addEventListener('click', () => {
+                backgroundMusic.play();
+                typeMessage();
+            }, { once: true });
+        };
 
         valentineButton.addEventListener('click', () => {
             popup.style.display = 'block';
-            valentineButton.style.display = 'none'; // Hide "click this" after clicking
-        });
-
-        window.onload = () => {
-            setTimeout(() => {
-                document.body.addEventListener('click', () => {
-                    backgroundMusic.play();
-                    typeMessage();
-                }, { once: true });
-            }, 500); // Delay before typing starts
-        };
-
-        galleryVideo.addEventListener('click', () => {
-            enlargedVideo.src = galleryVideo.src;
-            envelopeVideo.style.display = 'block';
-            enlargedVideo.play();
-        });
-
-        closeVideoEnvelope.addEventListener('click', () => {
-            envelopeVideo.style.display = 'none';
-            enlargedVideo.pause();
         });
     </script>
 </body>
